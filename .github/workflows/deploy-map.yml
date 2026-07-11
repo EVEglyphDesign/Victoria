@@ -1,14 +1,20 @@
-name: Build & Deploy Map to GitHub Pages
+name: Build & Deploy to GitHub Pages
 
-# Builds the interactive triangulation map straight from this repo and
-# publishes it to GitHub Pages. Runs entirely on GitHub's own servers.
-# No external service is involved in the build or the hosting.
+# Builds the interactive triangulation map AND the gamification engine page
+# straight from this repo and publishes both to GitHub Pages. Runs entirely on
+# GitHub's own servers. No external service is involved in build or hosting.
+#
+#   /               → the triangulation map (unchanged)
+#   /gamification/  → the gamification engine live page (reflected from
+#                     eve-glyph-education/game/gamification-engine, the canon
+#                     source of truth)
 
 on:
   push:
     branches: [master]
     paths:
       - "artifacts/triangulation-map/**"
+      - "artifacts/gamification/**"
       - ".github/workflows/deploy-map.yml"
   workflow_dispatch: {}
 
@@ -24,9 +30,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: artifacts/triangulation-map
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
@@ -36,21 +39,39 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
+      # ── Map (served at root) ──
+      - name: Install map dependencies
+        working-directory: artifacts/triangulation-map
         run: npm ci || npm install
 
-      - name: Build the client (static, no server, no backend)
+      - name: Build the map (static, no server, no backend)
+        working-directory: artifacts/triangulation-map
         run: npx vite build
 
-      - name: Add SPA + Jekyll-off files
+      # ── Gamification page (served at /gamification/) ──
+      - name: Install gamification dependencies
+        working-directory: artifacts/gamification
+        run: npm ci || npm install
+
+      - name: Build the gamification page (static, no server, no backend)
+        working-directory: artifacts/gamification
+        run: npx vite build
+
+      # ── Assemble the combined Pages site ──
+      - name: Assemble site tree
         run: |
-          touch dist/public/.nojekyll
-          cp dist/public/index.html dist/public/404.html
+          rm -rf _site
+          mkdir -p _site
+          cp -r artifacts/triangulation-map/dist/public/. _site/
+          mkdir -p _site/gamification
+          cp -r artifacts/gamification/dist/. _site/gamification/
+          touch _site/.nojekyll
+          cp _site/index.html _site/404.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: artifacts/triangulation-map/dist/public
+          path: _site
 
   deploy:
     needs: build
