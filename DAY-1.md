@@ -64,6 +64,8 @@ Open the map on your phone or laptop:
 
 Tap or hover any glowing point. Each one tells you how it connects to the others. Notice the shape of the idea: three independent lines — **technology, faith, ancestry** — all crossing at one person in the center. That's the whole concept of a digital twin in one image. Don't overthink it; just get the feel.
 
+Then tap **Start your journey** (top-left of the map). It shows your live twin score, your certification level, and a short list of quests. It reads straight from this repo — every file you add moves the needle and closes the sphere a little more. There's nothing to install and no account beyond GitHub; the repo itself is your save file, so it follows you to any device.
+
 ---
 
 ## 2. Understand the three layers (5 min)

@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import { NODES, CENTER, VECTOR_META, type MapNode, type Vector } from "@/lib/nodes";
 import qaData from "@/lib/qa.json";
-import { Send, X, MessageCircle, MapPin, Sparkles } from "lucide-react";
+import { Send, X, MessageCircle, MapPin, Sparkles, Trophy } from "lucide-react";
+import JourneyPanel from "@/components/JourneyPanel";
 
 interface QAPair { q: string; a: string; }
 const QA: QAPair[] = qaData as QAPair[];
@@ -102,6 +103,7 @@ export default function Home() {
   const mapObj = useRef<L.Map | null>(null);
   const [active, setActive] = useState<MapNode | null>(null);
   const [chatOpen, setChatOpen] = useState(false);
+  const [journeyOpen, setJourneyOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -241,8 +243,19 @@ export default function Home() {
             ancestry — reach out and resolve back to a single person. Tap any point to explore, or
             ask a question.
           </p>
+          <button
+            onClick={() => { setJourneyOpen(true); setActive(null); }}
+            className="mt-3 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/25"
+            data-testid="button-open-journey"
+          >
+            <Trophy className="h-3.5 w-3.5" />
+            Start your journey
+          </button>
         </div>
       </div>
+
+      {/* Journey / gamification panel */}
+      {journeyOpen && <JourneyPanel onClose={() => setJourneyOpen(false)} />}
 
       {/* Legend */}
       <div className="absolute bottom-4 left-4 z-[500] rounded-xl border border-white/10 bg-black/70 p-3 backdrop-blur-md sm:p-4">
