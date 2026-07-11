@@ -1,0 +1,16 @@
+# Keep raw personal-data exports out of version control by default.
+# Summarize exports into markdown notes instead of committing raw dumps.
+data-export/**/*.zip
+data-export/**/*.json
+data-export/**/*.csv
+data-export/**/*.html
+data-export/**/*.tar
+data-export/**/*.tar.gz
+data-export/raw/
+**/*.local.md
+
+# Node / build noise (from the bundled artifact source, if present)
+node_modules/
+dist/
+.DS_Store
+*.log
