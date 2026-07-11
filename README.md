@@ -4,6 +4,8 @@ An onboarding starter kit for building a **digital twin of yourself** — a work
 
 This repository is a *frame*. It comes with structure, prompts, and one shared artifact to look at — but the contents are yours to fill. Nothing in here is scraped or pre-collected about you. You decide what goes in, one file at a time.
 
+> **New here? Start with [`DAY-1.md`](DAY-1.md)** — a 30-minute on-ramp.
+>
 > Starting point: Monday. No rush to finish anything today. Read this page, open the map in `artifacts/`, and fill in whatever's easy first.
 
 ---
