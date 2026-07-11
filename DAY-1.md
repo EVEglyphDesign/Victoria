@@ -60,7 +60,7 @@ This is the most important part. Sovereignty means you can leave at any time and
 
 Open the map on your phone or laptop:
 
-**https://triangulation-bukoba.pplx.app**
+**https://eveglyphdesign.github.io/Victoria/**
 
 Tap or hover any glowing point. Each one tells you how it connects to the others. Notice the shape of the idea: three independent lines — **technology, faith, ancestry** — all crossing at one person in the center. That's the whole concept of a digital twin in one image. Don't overthink it; just get the feel.
 

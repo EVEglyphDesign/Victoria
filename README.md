@@ -30,7 +30,7 @@ Fill the three folders and the point in the middle — *you* — comes into focu
 
 Open [`artifacts/triangulation-map/`](artifacts/triangulation-map/) — this is the interactive map we've already talked about, included here as our common starting point. It shows the same three-vector logic mapped onto a real place and lineage. It's the picture the rest of this repo is built from.
 
-Live version: **https://triangulation-bukoba.pplx.app**
+Live version (hosted free on GitHub Pages, no subscription needed): **https://eveglyphdesign.github.io/Victoria/**
 
 ---
 

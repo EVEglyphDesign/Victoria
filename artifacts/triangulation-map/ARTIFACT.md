@@ -10,7 +10,7 @@ Those three vectors map directly onto the twin layers in this repo:
 
 ## See it live
 
-**https://triangulation-bukoba.pplx.app** — open on any phone or laptop. Tap or hover any point to read how it connects to the others and how, together, they form a sphere around the center.
+**https://eveglyphdesign.github.io/Victoria/** — open on any phone or laptop. Hosted free on GitHub Pages, built straight from this repo by GitHub Actions. No external service in the chain. Tap or hover any point to read how it connects to the others and how, together, they form a sphere around the center.
 
 ## Run it locally
 
