@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import { NODES, CENTER, VECTOR_META, type MapNode, type Vector } from "@/lib/nodes";
 import qaData from "@/lib/qa.json";
-import { Send, X, MessageCircle, MapPin, Sparkles, Trophy } from "lucide-react";
+import { Send, X, MessageCircle, MapPin, Sparkles, Trophy, ExternalLink } from "lucide-react";
 import JourneyPanel from "@/components/JourneyPanel";
 
 interface QAPair { q: string; a: string; }
@@ -243,14 +243,24 @@ export default function Home() {
             ancestry — reach out and resolve back to a single person. Tap any point to explore, or
             ask a question.
           </p>
-          <button
-            onClick={() => { setJourneyOpen(true); setActive(null); }}
-            className="mt-3 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/25"
-            data-testid="button-open-journey"
-          >
-            <Trophy className="h-3.5 w-3.5" />
-            Start your journey
-          </button>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <button
+              onClick={() => { setJourneyOpen(true); setActive(null); }}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/25"
+              data-testid="button-open-journey"
+            >
+              <Trophy className="h-3.5 w-3.5" />
+              Start your journey
+            </button>
+            <a
+              href="./gamification/"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-xs font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white"
+              data-testid="link-gamification-page"
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+              Open the full journey page
+            </a>
+          </div>
         </div>
       </div>
 
