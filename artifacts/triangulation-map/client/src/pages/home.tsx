@@ -268,6 +268,14 @@ export default function Home() {
               <Sparkles className="h-3.5 w-3.5" />
               See the reference assessment
             </a>
+            <a
+              href="./capability/"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-xs font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white"
+              data-testid="link-capability-page"
+            >
+              <MapPin className="h-3.5 w-3.5" />
+              What this surface demonstrates
+            </a>
           </div>
         </div>
       </div>

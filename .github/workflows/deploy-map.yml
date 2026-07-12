@@ -11,6 +11,8 @@ name: Build & Deploy to GitHub Pages
 #   /assessment/    → the seven-dimension reference-assessment wireframe
 #                     (static reflection from eve-glyph-education/
 #                     assessment-service/wireframes, the canon source of truth)
+#   /capability/    → single-surface delivery capability demonstration
+#                     (overview of the three proof points above)
 
 on:
   push:
@@ -19,6 +21,7 @@ on:
       - "artifacts/triangulation-map/**"
       - "artifacts/gamification/**"
       - "artifacts/assessment/**"
+      - "artifacts/capability/**"
       - ".github/workflows/deploy-map.yml"
   workflow_dispatch: {}
 
@@ -71,6 +74,8 @@ jobs:
           cp -r artifacts/gamification/dist/. _site/gamification/
           mkdir -p _site/assessment
           cp artifacts/assessment/index.html _site/assessment/index.html
+          mkdir -p _site/capability
+          cp artifacts/capability/index.html _site/capability/index.html
           touch _site/.nojekyll
           cp _site/index.html _site/404.html
 
