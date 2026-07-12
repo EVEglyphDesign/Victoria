@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EVE Glyph Reference Assessment — Evaluation Wireframes</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=cabinet-grotesk@700,800&display=swap" rel="stylesheet" />
+<style>
+:root, [data-theme="light"]{
+  --color-bg:#f5f6f8; --color-surface:#fff; --color-surface-offset:#eceef2; --color-divider:#dde0e6;
+  --color-border:#cdd1d9; --color-text:#10131a; --color-text-muted:#565c6b; --color-text-faint:#9298a6;
+  --color-primary:#0c7c8c; --color-primary-hover:#0a6472; --color-primary-highlight:#cfe6e9;
+  --color-amber:#b3760a; --color-amber-highlight:#f0ddb8; --color-success:#2f7d4f;
+  --radius-sm:.375rem; --radius-md:.625rem; --radius-lg:1rem; --radius-full:9999px;
+  --shadow-md:0 8px 24px rgba(20,26,40,.10); --shadow-lg:0 20px 48px rgba(15,20,40,.16);
+}
+[data-theme="dark"]{
+  --color-bg:#0a0d13; --color-surface:#10141c; --color-surface-offset:#171d2a; --color-divider:#232a38;
+  --color-border:#2c3444; --color-text:#e6e8ed; --color-text-muted:#97a0b3; --color-text-faint:#5c6479;
+  --color-primary:#4fc3d3; --color-primary-hover:#7bd6e3; --color-primary-highlight:#16333a;
+  --color-amber:#e0a83f; --color-amber-highlight:#3a3020; --color-success:#5fbb85;
+  --shadow-md:0 8px 24px rgba(0,0,0,.4); --shadow-lg:0 20px 48px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Satoshi','Helvetica Neue',sans-serif;background:var(--color-bg);color:var(--color-text);
+  line-height:1.55;transition:background .22s ease,color .22s ease;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Cabinet Grotesk','Georgia',serif;text-wrap:balance;line-height:1.1;letter-spacing:-0.01em}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.25rem}
+a{color:var(--color-primary);text-decoration:none}
+/* nav */
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+  background:color-mix(in oklab,var(--color-bg) 82%,transparent);border-bottom:1px solid var(--color-divider)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:'Cabinet Grotesk',serif;font-weight:800;font-size:1.05rem}
+.brand .mark{width:22px;height:22px}
+.nav-actions{display:flex;gap:.5rem}
+.toggle{border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text);
+  border-radius:var(--radius-full);width:40px;height:34px;cursor:pointer;font-weight:700;font-size:.78rem}
+/* hero */
+.hero{padding:3.5rem 0 2rem}
+.eyebrow{display:inline-block;padding:.35rem .8rem;border-radius:var(--radius-full);font-size:.72rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--color-primary);
+  background:color-mix(in oklab,var(--color-primary) 10%,transparent);border:1px solid var(--color-primary-highlight)}
+.hero h1{font-size:clamp(2rem,4.5vw,3.1rem);margin:1rem 0 .8rem}
+.hero .lede{max-width:60ch;color:var(--color-text-muted);font-size:1.08rem}
+.wire-flag{margin-top:1.2rem;display:inline-flex;gap:.5rem;align-items:center;font-size:.8rem;color:var(--color-amber);
+  background:var(--color-amber-highlight);border:1px dashed var(--color-amber);padding:.4rem .8rem;border-radius:var(--radius-md)}
+/* flow strip */
+.flow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:2rem 0 1rem;font-size:.86rem}
+.flow .node{padding:.5rem .85rem;background:var(--color-surface);border:1px solid var(--color-border);
+  border-radius:var(--radius-md);font-weight:600}
+.flow .node.here{border-color:var(--color-primary);color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-highlight)}
+.flow .arrow{color:var(--color-text-faint)}
+/* section + card */
+section{padding:2.2rem 0;border-top:1px solid var(--color-divider)}
+.section-head{margin-bottom:1.4rem}
+.kicker{font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--color-text-faint)}
+.section-head h2{font-size:clamp(1.5rem,3vw,2rem);margin-top:.4rem}
+.section-head p{color:var(--color-text-muted);max-width:62ch;margin-top:.5rem}
+.piece-num{color:var(--color-primary);font-family:'Cabinet Grotesk',serif}
+.card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);
+  padding:1.4rem;box-shadow:var(--shadow-md)}
+.mock{background:var(--color-bg);border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:1.1rem;margin-top:1rem}
+.mock-label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-faint);margin-bottom:.8rem}
+.field{margin-bottom:.9rem}
+.field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:.35rem}
+.field .input{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-sm);
+  padding:.6rem .75rem;color:var(--color-text-faint);font-size:.86rem}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.1rem;border-radius:var(--radius-full);
+  font-weight:700;font-size:.88rem;cursor:pointer;border:1px solid transparent}
+.btn-primary{background:var(--color-primary);color:#04222a}
+.btn-ghost{background:transparent;border-color:var(--color-border);color:var(--color-text)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media(max-width:820px){.grid-2,.grid-3{grid-template-columns:1fr}}
+/* seven-dimension gauges */
+.dim{display:flex;align-items:center;gap:.75rem;margin-bottom:.7rem}
+.dim .name{flex:0 0 44%;font-size:.86rem;font-weight:600}
+.bar{flex:1;height:9px;border-radius:var(--radius-full);background:var(--color-surface-offset);overflow:hidden}
+.bar > span{display:block;height:100%;border-radius:var(--radius-full);background:var(--color-primary)}
+.bar > span.warn{background:var(--color-amber)}
+.dim .val{flex:0 0 44px;text-align:right;font-variant-numeric:tabular-nums;font-size:.82rem;color:var(--color-text-muted)}
+/* footprint trace */
+.trace{font-family:'Cabinet Grotesk',ui-monospace,monospace;font-size:.78rem}
+.trace .row{display:grid;grid-template-columns:74px 22px 1fr;gap:.5rem;padding:.4rem 0;border-bottom:1px dashed var(--color-divider)}
+.trace .t{color:var(--color-text-faint);font-variant-numeric:tabular-nums}
+.trace .g{color:var(--color-primary)}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;padding:.15rem .5rem;border-radius:var(--radius-full);
+  background:var(--color-surface-offset);color:var(--color-text-muted);margin-left:.4rem}
+.tag.flag{background:var(--color-amber-highlight);color:var(--color-amber)}
+.tag.ok{background:color-mix(in oklab,var(--color-success) 18%,transparent);color:var(--color-success)}
+/* live stream */
+.stream{display:flex;gap:1rem;flex-wrap:wrap}
+.stream .video{flex:1 1 260px;aspect-ratio:16/9;background:var(--color-surface-offset);border-radius:var(--radius-md);
+  display:flex;align-items:center;justify-content:center;color:var(--color-text-faint);font-size:.8rem;position:relative}
+.stream .live{position:absolute;top:.6rem;left:.6rem;font-size:.66rem;font-weight:700;color:#fff;background:#c0392b;
+  padding:.15rem .5rem;border-radius:var(--radius-full)}
+.stream .side{flex:1 1 220px}
+.event{font-size:.8rem;padding:.4rem 0;border-bottom:1px dashed var(--color-divider);color:var(--color-text-muted)}
+/* archive */
+.arch{display:grid;grid-template-columns:1fr auto auto;gap:.6rem;align-items:center;font-size:.84rem;
+  padding:.6rem 0;border-bottom:1px dashed var(--color-divider)}
+.arch .name{font-weight:600}
+footer{padding:2.4rem 0;border-top:1px solid var(--color-divider);color:var(--color-text-faint);font-size:.8rem}
+footer .foot-canon{color:var(--color-text-muted);max-width:70ch;margin-top:.6rem}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 24 24" fill="none" aria-label="EVE Glyph"><path d="M12 2 L22 20 L2 20 Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="14.5" r="2.2" fill="currentColor"/></svg>
+    EVE Glyph · Reference Assessment
+  </div>
+  <div class="nav-actions">
+    <a class="toggle" href="../" aria-label="Back to the triangulation map" style="text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap;width:auto;padding-left:.7rem;padding-right:.7rem;border-radius:999px">←&nbsp;Map</a>
+    <button class="toggle" data-lang aria-label="Language">ES</button>
+    <button class="toggle" data-theme-toggle aria-label="Theme">◐</button>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">Evaluation · Wireframes</span>
+  <h1>The six pieces the assessment still needs</h1>
+  <p class="lede">Low-fidelity wireframes for the evaluation surfaces named as not-yet-built in <code>assessment-service/README.md</code>. Each maps a cadet's scored footprints from the Starship Academy training world into the enterprise EVE Glyph reference assessment — behind one human-reviewed intake gate.</p>
+  <div class="wire-flag">◇ Wireframe only — structure and flow, not final visual design. No live data, no backend.</div>
+  <div class="flow">
+    <span class="node">Starship Academy wireframe</span><span class="arrow">→</span>
+    <span class="node here">These six evaluation pieces</span><span class="arrow">→</span>
+    <span class="node">Signed reference assessment</span>
+  </div>
+</div></header>
+
+<!-- 1. Submission form / structured intake -->
+<section id="intake"><div class="wrap">
+  <div class="section-head">
+    <div class="kicker"><span class="piece-num">Piece 1</span> · Submission form / structured intake template</div>
+    <h2>Submit an architecture for assessment</h2>
+    <p>The structured template that opens the WhatsApp routing to the appropriate GitHub author. Routing is the first gate; nothing reaches a repository before a human accepts it.</p>
+  </div>
+  <div class="card">
+    <div class="mock">
+      <div class="mock-label">Intake — routes to author via WhatsApp before any repo update</div>
+      <div class="grid-2">
+        <div class="field"><label>Submitting institution</label><div class="input">e.g. NB Power · regulated utility</div></div>
+        <div class="field"><label>Architecture domain</label><div class="input">▾ Regulated utilities / SAP / Healthcare / Marine / Nuclear …</div></div>
+      </div>
+      <div class="field"><label>High-level architecture context</label><div class="input" style="min-height:64px">What the system does, where the human-in-the-loop sits, what it integrates…</div></div>
+      <div class="grid-2">
+        <div class="field"><label>Live-stream this assessment?</label><div class="input">◯ Yes, public  ◉ Private  ◯ Decide with author</div></div>
+        <div class="field"><label>Preferred contact channel</label><div class="input">WhatsApp · LinkedIn · email</div></div>
+      </div>
+      <button class="btn btn-primary">Open WhatsApp routing →</button>
+      <p style="font-size:.74rem;color:var(--color-text-faint);margin-top:.7rem">Human-reviewed · No self-serve assessment · Author accepts routing before assessment proceeds</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 2. Routing rules engine -->
+<section id="routing"><div class="wrap">
+  <div class="section-head">
+    <div class="kicker"><span class="piece-num">Piece 2</span> · Routing rules engine (operator-matching)</div>
+    <h2>Match the submission to the right author</h2>
+    <p>Operator-matching logic that puts each submission in front of the author whose lattice / education / marketplace / hyperloop work is the relevant precedent. Manual on WhatsApp until routing patterns stabilize.</p>
+  </div>
+  <div class="card">
+    <div class="mock">
+      <div class="mock-label">Routing preview — domain → author</div>
+      <div class="arch"><span class="name">Regulated utilities · SAP lock-in</span><span class="tag">domain match</span><span class="tag ok">→ EUDG / NB Power author</span></div>
+      <div class="arch"><span class="name">Iconography proposal</span><span class="tag">domain match</span><span class="tag ok">→ Marketplace author</span></div>
+      <div class="arch"><span class="name">Biological integration</span><span class="tag">domain match</span><span class="tag ok">→ Integration-layer author</span></div>
+      <div class="arch"><span class="name">Unmatched / novel</span><span class="tag flag">no author yet</span><span class="tag">→ Lead operator triage</span></div>
+      <p style="font-size:.74rem;color:var(--color-text-faint);margin-top:.7rem">Phase 0: lead operator routes manually. Automation comes when patterns are stable and multiple authors are active.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 3. Footprint trace format -->
+<section id="trace"><div class="wrap">
+  <div class="section-head">
+    <div class="kicker"><span class="piece-num">Piece 3</span> · Footprint trace format specification</div>
+    <h2>The assessment's time-ordered footprint trace</h2>
+    <p>Every wobble detection, lock-in flag, and re-orientation, in time order — the reproducible record that makes the assessment auditable rather than a black-box verdict.</p>
+  </div>
+  <div class="card">
+    <div class="mock">
+      <div class="mock-label">Footprint trace — sample run (wireframe data)</div>
+      <div class="trace">
+        <div class="row"><span class="t">00:00.0</span><span class="g">◈</span><span>Start-position check — operator reset path present<span class="tag ok">pass</span></span></div>
+        <div class="row"><span class="t">00:12.4</span><span class="g">▲</span><span>Wobble detected — ingestion faster than operator dampening<span class="tag flag">wobble</span></span></div>
+        <div class="row"><span class="t">00:19.1</span><span class="g">⬡</span><span>Lock-in flag — single-vendor continuity dependency<span class="tag flag">lock-in</span></span></div>
+        <div class="row"><span class="t">00:26.8</span><span class="g">↺</span><span>Re-orientation — human-in-the-loop re-inserted at ingest<span class="tag ok">corrected</span></span></div>
+        <div class="row"><span class="t">00:31.0</span><span class="g">◈</span><span>Sovereignty reading — 2 exit vectors preserved<span class="tag">reading</span></span></div>
+      </div>
+      <p style="font-size:.74rem;color:var(--color-text-faint);margin-top:.7rem">Format fields (draft): <code>t_offset · glyph · dimension · detail · verdict</code>. Portable (CSV/JSON), forkable, no vendor payload.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 4. Live-stream surface -->
+<section id="stream"><div class="wrap">
+  <div class="section-head">
+    <div class="kicker"><span class="piece-num">Piece 4</span> · Live-stream surface design</div>
+    <h2>The methodology operating in the open</h2>
+    <p>With submitter and author consent, the assessment streams live — footprints, wobble detections, and lock-in flags shown as they fire, correlated with public-domain event monitoring.</p>
+  </div>
+  <div class="card">
+    <div class="mock">
+      <div class="mock-label">Live-stream layout (consented)</div>
+      <div class="stream">
+        <div class="video"><span class="live">● LIVE</span>Assessment stream · author + submitter</div>
+        <div class="side">
+          <div class="mock-label">Firing now</div>
+          <div class="event">▲ Wobble — ingest &gt; dampening</div>
+          <div class="event">⬡ Lock-in — vendor continuity</div>
+          <div class="event">◈ Public-domain event correlated: vendor incident, today</div>
+          <div class="event">↺ Re-orientation accepted by author</div>
+        </div>
+      </div>
+      <p style="font-size:.74rem;color:var(--color-text-faint);margin-top:.7rem">Open-governance posture. The stream is the reproducibility record. Off by default; consent required from both sides.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 5. Public-domain event correlation -->
+<section id="correlation"><div class="wrap">
+  <div class="section-head">
+    <div class="kicker"><span class="piece-num">Piece 5</span> · Public-domain event correlation layer</div>
+    <h2>Read the architecture against the live world</h2>
+    <p>Vendor incidents, AI-safety failures, compliance events, and market signals — the same signals the hyperloop meter/monitor pages track — become inputs to the assessment. An architecture is read against what is happening today.</p>
+  </div>
+  <div class="grid-3">
+    <div class="card"><div class="mock-label">Vendor incidents</div><p style="font-size:.86rem;color:var(--color-text-muted)">Live feed of lock-in-relevant outages / EOL notices matched to the submitted stack.</p></div>
+    <div class="card"><div class="mock-label">Regulated-industry events</div><p style="font-size:.86rem;color:var(--color-text-muted)">Compliance/legislative changes in the submitter's sector, correlated to the sovereignty reading.</p></div>
+    <div class="card"><div class="mock-label">AI-safety signals</div><p style="font-size:.86rem;color:var(--color-text-muted)">Public failure-mode events matched to the architecture's safety-reading footprint.</p></div>
+  </div>
+</div></section>
+
+<!-- 6. Public archive -->
+<section id="archive"><div class="wrap">
+  <div class="section-head">
+    <div class="kicker"><span class="piece-num">Piece 6</span> · Public archive of consented assessments</div>
+    <h2>The accumulating corpus of worked examples</h2>
+    <p>With submitter consent, an assessment becomes part of the reference model's public corpus — author-signed, footprint-traced, reproducible.</p>
+  </div>
+  <div class="card">
+    <div class="mock">
+      <div class="mock-label">Public assessment archive (consented only)</div>
+      <div class="arch"><span class="name">Regulated utility — SAP continuity architecture</span><span class="tag ok">author-signed</span><span class="tag">trace ✓</span></div>
+      <div class="arch"><span class="name">Healthcare — EHR integration surface</span><span class="tag ok">author-signed</span><span class="tag">trace ✓</span></div>
+      <div class="arch"><span class="name">Marine — signals telemetry pipeline</span><span class="tag ok">author-signed</span><span class="tag">trace ✓</span></div>
+      <p style="font-size:.74rem;color:var(--color-text-faint);margin-top:.7rem">The submitter receives a reading, not a verdict. Archival is opt-in. Every entry carries the author attribution and full footprint trace.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- The seven-dimension reading (binds to the scores) -->
+<section id="reading"><div class="wrap">
+  <div class="section-head">
+    <div class="kicker">Binding · Seven-dimension reading</div>
+    <h2>What every piece feeds into</h2>
+    <p>The cadet's seven test-scores from the Starship Academy world and the submitted architecture produce a quantified reading across the seven assessment dimensions. This is the larger evaluation the wireframes serve.</p>
+  </div>
+  <div class="card">
+    <div class="mock-label">Quantified reading (wireframe values)</div>
+    <div class="dim"><span class="name">Cognitive fitness (Meth. 13)</span><span class="bar"><span style="width:72%"></span></span><span class="val">72</span></div>
+    <div class="dim"><span class="name">Wobble reading (Meth. 12)</span><span class="bar"><span class="warn" style="width:48%"></span></span><span class="val">48</span></div>
+    <div class="dim"><span class="name">Lock-in disclosure (Meth. 14)</span><span class="bar"><span class="warn" style="width:35%"></span></span><span class="val">35</span></div>
+    <div class="dim"><span class="name">Start-position (Meth. 15)</span><span class="bar"><span style="width:80%"></span></span><span class="val">80</span></div>
+    <div class="dim"><span class="name">Monitor maturity (Meth. 16)</span><span class="bar"><span style="width:64%"></span></span><span class="val">64</span></div>
+    <div class="dim"><span class="name">Sovereignty reading</span><span class="bar"><span style="width:58%"></span></span><span class="val">58</span></div>
+    <div class="dim"><span class="name">Safety reading</span><span class="bar"><span style="width:69%"></span></span><span class="val">69</span></div>
+    <p style="font-size:.74rem;color:var(--color-text-faint);margin-top:.7rem">A reading, not a verdict. What the enterprise does with it is the enterprise's decision.</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <strong>EVE Glyph Reference Assessment — evaluation wireframes.</strong> Structure and flow only; final visual design and backend to follow. Portable, forkable, no vendor lock-in.
+  <p class="foot-canon">© 2026 Dany Theriault. EVE "digital stem cell" glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. Published as a time-stamped record of authorship and intent.</p>
+  <p class="foot-canon"><em>Pour le bien-être du peuple.</em></p>
+</div></footer>
+
+<script>
+  const root=document.documentElement;
+  document.querySelector('[data-theme-toggle]').addEventListener('click',()=>{
+    root.dataset.theme = root.dataset.theme==='dark'?'light':'dark';
+  });
+  // language toggle is a wireframe stub (no i18n payload yet)
+  document.querySelector('[data-lang]').addEventListener('click',e=>{
+    e.target.textContent = e.target.textContent==='ES'?'EN':'ES';
+  });
+</script>
+</body>
+</html>

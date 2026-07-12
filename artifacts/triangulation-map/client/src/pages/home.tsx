@@ -260,6 +260,14 @@ export default function Home() {
               <ExternalLink className="h-3.5 w-3.5" />
               Open the full journey page
             </a>
+            <a
+              href="./assessment/"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-xs font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white"
+              data-testid="link-assessment-page"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              See the reference assessment
+            </a>
           </div>
         </div>
       </div>

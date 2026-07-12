@@ -8,6 +8,9 @@ name: Build & Deploy to GitHub Pages
 #   /gamification/  → the gamification engine live page (reflected from
 #                     eve-glyph-education/game/gamification-engine, the canon
 #                     source of truth)
+#   /assessment/    → the seven-dimension reference-assessment wireframe
+#                     (static reflection from eve-glyph-education/
+#                     assessment-service/wireframes, the canon source of truth)
 
 on:
   push:
@@ -15,6 +18,7 @@ on:
     paths:
       - "artifacts/triangulation-map/**"
       - "artifacts/gamification/**"
+      - "artifacts/assessment/**"
       - ".github/workflows/deploy-map.yml"
   workflow_dispatch: {}
 
@@ -65,6 +69,8 @@ jobs:
           cp -r artifacts/triangulation-map/dist/public/. _site/
           mkdir -p _site/gamification
           cp -r artifacts/gamification/dist/. _site/gamification/
+          mkdir -p _site/assessment
+          cp artifacts/assessment/index.html _site/assessment/index.html
           touch _site/.nojekyll
           cp _site/index.html _site/404.html
 
