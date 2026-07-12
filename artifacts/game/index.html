@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>The Spinning Sphere — A Training Instrument</title>
+<meta name="description" content="A single-surface training game: balance the spinning sphere as it grows, hold speed without wobble. Fictional imagery, real cognitive imprint. No accounts, no backend." />
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=zodiak@400,500,600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#07070a; --surface:rgba(255,255,255,.04); --line:rgba(255,255,255,.12);
+    --text:#f4f4f5; --muted:rgba(255,255,255,.66); --faint:rgba(255,255,255,.42);
+    --primary:hsl(221 83% 62%); --primary-soft:hsl(221 83% 62% / .16);
+    --gold:#f4c430; --green:#34d399; --amber:#fbbf24; --red:#f87171;
+    --sans:'General Sans',ui-sans-serif,system-ui,sans-serif;
+    --serif:'Zodiak',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow:hidden;line-height:1.55}
+  #stage{position:fixed;inset:0}
+  canvas{display:block;width:100%;height:100%;touch-action:none}
+
+  /* overlay panels */
+  .layer{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:1.2rem;z-index:20;pointer-events:none}
+  .layer.on{display:flex;pointer-events:auto}
+  .panel{max-width:540px;width:100%;background:rgba(12,12,16,.86);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:18px;padding:1.6rem 1.5rem;opacity:0;transform:translateY(10px);transition:.32s ease;max-height:88vh;overflow-y:auto}
+  .layer.on .panel{opacity:1;transform:none}
+  .eyebrow{font-family:var(--serif);font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--primary);margin-bottom:.7rem}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.5rem,4.4vw,2.1rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:.8rem}
+  h2{font-family:var(--serif);font-weight:600;font-size:1.25rem;margin-bottom:.6rem}
+  p{color:var(--muted);font-size:.95rem;margin-bottom:.8rem}
+  p.small{font-size:.82rem;color:var(--faint)}
+  .fict{border:1px dashed hsl(43 74% 60% / .5);background:hsl(43 74% 55% / .08);border-radius:10px;padding:.7rem .85rem;font-size:.82rem;color:var(--amber);margin:.9rem 0}
+  label{display:block;font-size:.78rem;letter-spacing:.02em;color:var(--faint);text-transform:uppercase;margin:.9rem 0 .35rem}
+  input[type=text],textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:10px;color:var(--text);font-family:var(--sans);font-size:.95rem;padding:.7rem .8rem;resize:vertical}
+  input:focus,textarea:focus{outline:none;border-color:hsl(221 83% 62% / .6)}
+  textarea{min-height:86px}
+  .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:.5rem .95rem;font-size:.85rem;color:var(--muted);cursor:pointer;transition:.15s;background:none;font-family:var(--sans)}
+  .chip:hover{background:rgba(255,255,255,.07);color:var(--text)}
+  .chip.sel{border-color:hsl(221 83% 62% / .7);background:var(--primary-soft);color:var(--primary);font-weight:600}
+  .btns{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.3rem}
+  button.act{font-family:var(--sans);cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--text);border-radius:999px;padding:.65rem 1.2rem;font-size:.9rem;font-weight:500;transition:.15s}
+  button.act:hover{background:rgba(255,255,255,.1)}
+  button.act.primary{border-color:hsl(221 83% 62% / .5);background:var(--primary-soft);color:var(--primary);font-weight:600}
+  button.act.primary:disabled{opacity:.4;cursor:not-allowed}
+  button.act.ghost{border-color:transparent;color:var(--faint)}
+  ul.steps{list-style:none;margin:.4rem 0 .2rem}
+  ul.steps li{font-size:.9rem;color:var(--muted);padding:.3rem 0 .3rem 1.4rem;position:relative}
+  ul.steps li::before{content:"◇";position:absolute;left:0;color:var(--gold)}
+
+  /* HUD during play */
+  #hud{position:fixed;top:0;left:0;right:0;z-index:15;display:flex;justify-content:space-between;align-items:flex-start;padding:.9rem 1rem;pointer-events:none;opacity:0;transition:.3s}
+  #hud.on{opacity:1}
+  .hud-box{background:rgba(10,10,14,.6);backdrop-filter:blur(8px);border:1px solid var(--line-2,rgba(255,255,255,.08));border-radius:12px;padding:.55rem .8rem;pointer-events:auto}
+  .hud-label{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .hud-val{font-family:var(--serif);font-size:1.05rem;font-weight:500;margin-top:.1rem}
+  .wobble-track{width:120px;height:6px;border-radius:3px;background:rgba(255,255,255,.12);margin-top:.35rem;overflow:hidden}
+  .wobble-fill{height:100%;width:0%;background:var(--green);transition:width .1s linear,background .2s}
+
+  /* bottom controls */
+  #controls{position:fixed;bottom:0;left:0;right:0;z-index:15;display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom));pointer-events:none;opacity:0;transition:.3s}
+  #controls.on{opacity:1}
+  .ctrl-row{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;pointer-events:auto}
+  .speed-wrap{display:flex;align-items:center;gap:.7rem;background:rgba(10,10,14,.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:.5rem .9rem;pointer-events:auto}
+  .speed-wrap span{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:150px;height:5px;border-radius:3px;background:rgba(255,255,255,.18);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--primary);cursor:pointer;border:2px solid #fff}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--primary);cursor:pointer;border:2px solid #fff}
+  .hint{font-size:.74rem;color:var(--faint);text-align:center;max-width:90vw;pointer-events:none}
+
+  .alien-say{position:fixed;left:50%;transform:translateX(-50%);bottom:8.5rem;z-index:14;background:rgba(10,10,14,.72);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:.55rem .95rem;font-size:.86rem;color:var(--muted);max-width:80vw;text-align:center;opacity:0;transition:.35s;pointer-events:none}
+  .alien-say.on{opacity:1}
+  .alien-say em{color:var(--gold);font-style:normal}
+
+  a.homelink{position:fixed;top:.9rem;left:50%;transform:translateX(-50%);z-index:16;font-size:.72rem;color:var(--faint);text-decoration:none;border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:.3rem .8rem;background:rgba(10,10,14,.5);backdrop-filter:blur(6px);opacity:0;transition:.3s;white-space:nowrap}
+  a.homelink.on{opacity:1}
+  a.homelink:hover{color:var(--text)}
+  #sound-toggle{position:fixed;top:.9rem;right:.9rem;z-index:30;font:inherit;font-size:.7rem;color:var(--faint);background:rgba(10,10,14,.5);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:.3rem .7rem;cursor:pointer;backdrop-filter:blur(6px);transition:.25s;white-space:nowrap}
+  #sound-toggle:hover{color:var(--text);border-color:rgba(255,255,255,.25)}
+  #sound-toggle.on{color:var(--gold,#f4c430);border-color:hsl(45 80% 55% / .4)}
+  @media(max-width:600px){
+    #hud{flex-direction:row;top:2.9rem;padding:.5rem .7rem}
+    .hud-box{padding:.4rem .55rem}
+    .hud-label{font-size:.55rem;letter-spacing:.1em}
+    .hud-val{font-size:.9rem}
+    .wobble-track{width:96px}
+    input[type=range]{width:110px}
+    a.homelink{top:.6rem;font-size:.66rem;padding:.28rem .6rem}
+    #sound-toggle{top:.6rem;right:.6rem;font-size:.66rem;padding:.28rem .55rem}
+  }
+</style>
+</head>
+<body>
+<div id="stage"><canvas id="c"></canvas></div>
+
+<a class="homelink" id="homelink" href="../">← back to the surface</a>
+<button id="sound-toggle" aria-label="Toggle sound" title="Sound is off — click to enable">🔇 Sound</button>
+
+<!-- HUD -->
+<div id="hud">
+  <div class="hud-box">
+    <div class="hud-label">Agents on the sphere</div>
+    <div class="hud-val" id="hud-agents">3</div>
+  </div>
+  <div class="hud-box" style="text-align:right">
+    <div class="hud-label">Wobble vs tolerance</div>
+    <div class="wobble-track"><div class="wobble-fill" id="wobble-fill"></div></div>
+  </div>
+</div>
+
+<!-- alien speech -->
+<div class="alien-say" id="alien-say"></div>
+
+<!-- bottom controls -->
+<div id="controls">
+  <div class="hint" id="ctrl-hint">Tap the sphere to add an agent. Keep it balanced.</div>
+  <div class="ctrl-row">
+    <button class="act" id="btn-rebalance">Re-balance</button>
+    <button class="act" id="btn-registry-view">My loved things</button>
+  </div>
+  <div class="speed-wrap">
+    <span>Slow</span>
+    <input type="range" id="speed" min="0" max="100" value="12" />
+    <span>Fast</span>
+  </div>
+</div>
+
+<!-- overlay layers -->
+<div class="layer on" id="layer"><div class="panel" id="panel"></div></div>
+
+<script src="./game.js"></script>
+</body>
+</html>

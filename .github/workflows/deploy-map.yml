@@ -13,6 +13,9 @@ name: Build & Deploy to GitHub Pages
 #                     assessment-service/wireframes, the canon source of truth)
 #   /capability/    → single-surface delivery capability demonstration
 #                     (overview of the three proof points above)
+#   /game/          → the playable spinning-sphere training instrument
+#                     (self-contained HTML+canvas, no build, no backend;
+#                     first worked instance of eve-glyph-education/game canon)
 
 on:
   push:
@@ -22,6 +25,7 @@ on:
       - "artifacts/gamification/**"
       - "artifacts/assessment/**"
       - "artifacts/capability/**"
+      - "artifacts/game/**"
       - ".github/workflows/deploy-map.yml"
   workflow_dispatch: {}
 
@@ -76,6 +80,8 @@ jobs:
           cp artifacts/assessment/index.html _site/assessment/index.html
           mkdir -p _site/capability
           cp artifacts/capability/index.html _site/capability/index.html
+          mkdir -p _site/game
+          cp -r artifacts/game/. _site/game/
           touch _site/.nojekyll
           cp _site/index.html _site/404.html
 

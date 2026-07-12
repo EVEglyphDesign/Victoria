@@ -48,7 +48,7 @@
   .sub{margin-top:.8rem;color:var(--muted);max-width:64ch}
 
   /* proof cards */
-  .cards{margin-top:2.2rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+  .cards{margin-top:2.2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:1.1rem}
   .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.4rem;transition:.18s}
   .card:hover{border-color:hsl(221 83% 60% / .4);transform:translateY(-2px)}
   .card .num{font-family:var(--serif);font-size:.8rem;color:var(--primary);letter-spacing:.1em}
@@ -104,7 +104,7 @@
 
 <section id="proof"><div class="wrap">
   <p class="kicker">What one surface delivers</p>
-  <h2>Three working proof points, one page</h2>
+  <h2>Four working proof points, one page</h2>
   <p class="sub">Each is live and running now — not a mockup. Together they show the same delivery method spanning from data-rich enterprise tooling down to an approachable, student-facing experience.</p>
 
   <div class="cards">
@@ -128,6 +128,13 @@
       <p>Low-fidelity wireframes for a seven-dimension architecture assessment — intake, routing, footprint trace, live correlation, and a consented public archive. The enterprise end of the same tool chain.</p>
       <div class="tags"><span class="tag">Enterprise architecture</span><span class="tag">Wireframe</span><span class="tag">Assessment</span></div>
       <a class="go" href="../assessment/">Open the wireframes →</a>
+    </div>
+    <div class="card">
+      <div class="num">04</div>
+      <h3>Playable training instrument</h3>
+      <p>A single-surface educational game: a spinning-sphere simulation that teaches classification, balance, and speed as felt experience, with a friendly guide. Self-contained canvas — no build, no backend, no accounts. The student-facing end of the same tool chain.</p>
+      <div class="tags"><span class="tag">Interactive learning</span><span class="tag">Canvas</span><span class="tag">No backend</span></div>
+      <a class="go" href="../game/">Play the instrument →</a>
     </div>
   </div>
 </div></section>

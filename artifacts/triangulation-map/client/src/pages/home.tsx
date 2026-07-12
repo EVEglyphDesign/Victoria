@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import { NODES, CENTER, VECTOR_META, type MapNode, type Vector } from "@/lib/nodes";
 import qaData from "@/lib/qa.json";
-import { Send, X, MessageCircle, MapPin, Sparkles, Trophy, ExternalLink } from "lucide-react";
+import { Send, X, MessageCircle, MapPin, Sparkles, Trophy, ExternalLink, Gamepad2 } from "lucide-react";
 import JourneyPanel from "@/components/JourneyPanel";
 
 interface QAPair { q: string; a: string; }
@@ -275,6 +275,14 @@ export default function Home() {
             >
               <MapPin className="h-3.5 w-3.5" />
               What this surface demonstrates
+            </a>
+            <a
+              href="./game/"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-xs font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white"
+              data-testid="link-game-page"
+            >
+              <Gamepad2 className="h-3.5 w-3.5" />
+              Play the training instrument
             </a>
           </div>
         </div>
