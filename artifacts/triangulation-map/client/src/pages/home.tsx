@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import { NODES, CENTER, VECTOR_META, type MapNode, type Vector } from "@/lib/nodes";
 import qaData from "@/lib/qa.json";
-import { Send, X, MessageCircle, MapPin, Sparkles, Trophy, ExternalLink, Gamepad2 } from "lucide-react";
-import JourneyPanel from "@/components/JourneyPanel";
+import { Send, X, MessageCircle, MapPin, Sparkles, ExternalLink } from "lucide-react";
+import SphereBridge from "@/components/SphereBridge";
 
 interface QAPair { q: string; a: string; }
 const QA: QAPair[] = qaData as QAPair[];
@@ -103,7 +103,7 @@ export default function Home() {
   const mapObj = useRef<L.Map | null>(null);
   const [active, setActive] = useState<MapNode | null>(null);
   const [chatOpen, setChatOpen] = useState(false);
-  const [journeyOpen, setJourneyOpen] = useState(false);
+  const [bridgeOpen, setBridgeOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -245,12 +245,12 @@ export default function Home() {
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <button
-              onClick={() => { setJourneyOpen(true); setActive(null); }}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/25"
+              onClick={() => { setBridgeOpen(true); setActive(null); }}
+              className="inline-flex items-center gap-2 rounded-full border border-primary/50 bg-primary/20 px-5 py-2.5 text-xs font-semibold text-primary transition-colors hover:bg-primary/30"
               data-testid="button-open-journey"
             >
-              <Trophy className="h-3.5 w-3.5" />
-              Start your journey
+              <Sparkles className="h-3.5 w-3.5" />
+              Start your journey — watch the triangles close into the sphere
             </button>
             <a
               href="./gamification/"
@@ -276,20 +276,17 @@ export default function Home() {
               <MapPin className="h-3.5 w-3.5" />
               What this surface demonstrates
             </a>
-            <a
-              href="./game/"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-xs font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white"
-              data-testid="link-game-page"
-            >
-              <Gamepad2 className="h-3.5 w-3.5" />
-              Play the training instrument
-            </a>
           </div>
         </div>
       </div>
 
-      {/* Journey / gamification panel */}
-      {journeyOpen && <JourneyPanel onClose={() => setJourneyOpen(false)} />}
+      {/* The bridge: triangles closing into the sphere, then the door to the instrument */}
+      {bridgeOpen && (
+        <SphereBridge
+          onClose={() => setBridgeOpen(false)}
+          onEnter={() => { window.location.href = "./game/"; }}
+        />
+      )}
 
       {/* Legend */}
       <div className="absolute bottom-4 left-4 z-[500] rounded-xl border border-white/10 bg-black/70 p-3 backdrop-blur-md sm:p-4">
