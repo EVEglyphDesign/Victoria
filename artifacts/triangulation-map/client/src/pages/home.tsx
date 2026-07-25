@@ -5,6 +5,9 @@ import qaData from "@/lib/qa.json";
 import { Send, X, MessageCircle, MapPin, Sparkles, ExternalLink } from "lucide-react";
 import SphereBridge from "@/components/SphereBridge";
 
+const FOOTER_CANON = "© 2026 Dany Theriault. EVE “digital stem cell” glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. Published as a time-stamped record of authorship and intent.";
+const FOOTER_COMPANION = "pour le bien-être du peuple";
+
 interface QAPair { q: string; a: string; }
 const QA: QAPair[] = qaData as QAPair[];
 
@@ -481,6 +484,12 @@ export default function Home() {
           </form>
         </div>
       )}
+
+      {/* Canonical copyright footer — required on every page */}
+      <footer className="pointer-events-none absolute bottom-0 left-0 right-0 z-[400] px-3 py-1.5 text-center text-[10px] leading-snug text-white/70 bg-black/60">
+        <p className="m-0">{FOOTER_CANON}</p>
+        <p className="m-0">{FOOTER_COMPANION}</p>
+      </footer>
     </div>
   );
 }

@@ -25,3 +25,9 @@ This folder is where you'd drop those exports (or notes about them). Below are t
 Only your own accounts, only data you're comfortable modeling. If you'd hesitate to say it out loud about yourself, it probably doesn't belong in the twin.
 
 *(A `.gitignore` in this repo keeps common export formats out of version control by default, so you don't accidentally commit a raw dump.)*
+
+---
+
+© 2026 Dany Theriault. EVE “digital stem cell” glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. Published as a time-stamped record of authorship and intent.
+
+pour le bien-être du peuple

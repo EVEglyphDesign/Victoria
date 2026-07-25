@@ -7,6 +7,9 @@ import { createRoot } from "react-dom/client";
 import JourneyPanel from "./JourneyPanel";
 import "./index.css";
 
+const FOOTER_CANON = "© 2026 Dany Theriault. EVE “digital stem cell” glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. Published as a time-stamped record of authorship and intent.";
+const FOOTER_COMPANION = "pour le bien-être du peuple";
+
 function App() {
   const [open, setOpen] = useState(true);
 
@@ -41,9 +44,10 @@ function App() {
 
       {open && <JourneyPanel onClose={() => setOpen(false)} />}
 
-      <footer className="absolute bottom-4 left-0 right-0 px-6 text-center text-[10px] leading-relaxed text-white/30 sm:px-10">
-        © 2026 Dany Theriault. EVE “digital stem cell” glyph — all rights
-        reserved. Pour le bien-être du peuple.
+      <footer className="absolute bottom-4 left-0 right-0 px-6 text-center text-[10px] leading-relaxed text-white/60 sm:px-10">
+        {FOOTER_CANON}
+        <br />
+        {FOOTER_COMPANION}
       </footer>
     </div>
   );

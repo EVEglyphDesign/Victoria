@@ -17,3 +17,9 @@ Copy this into a new file (e.g. `principles.md`) and answer what you like:
 ## What this becomes
 
 These files are the twin's *values layer* — the ethical and stylistic frame it decides under. It's what makes the model's choices trustworthy as a stand-in for yours.
+
+---
+
+© 2026 Dany Theriault. EVE “digital stem cell” glyph and glyph-based design principles — all rights reserved. Stewardship of rights of use and assignment for large public and institutional usage rests with the Pacific Utilities Design Council. Published as a time-stamped record of authorship and intent.
+
+pour le bien-être du peuple
