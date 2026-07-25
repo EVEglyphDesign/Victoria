@@ -280,6 +280,17 @@ export default function Home() {
               What this surface demonstrates
             </a>
           </div>
+
+          {/* Canonical copyright footer — required on every page. Anchored to
+              the top-left title panel (inside its own pointer-events-auto
+              wrapper) so it scrolls/stacks with that content instead of
+              competing with the legend (bottom-left) or the chat launcher
+              (bottom-right) for the same strip of space at narrow
+              viewports. */}
+          <div className="pointer-events-auto mt-3 max-w-md rounded-md bg-black/50 px-2.5 py-1.5 text-[9px] leading-snug text-white/75">
+            <p className="m-0">{FOOTER_CANON}</p>
+            <p className="m-0">{FOOTER_COMPANION}</p>
+          </div>
         </div>
       </div>
 
@@ -485,15 +496,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Canonical copyright footer — required on every page. Inset from the
-          legend (bottom-left) and the chat launcher (bottom-right) so it never
-          overlaps either at any viewport width. */}
-      <footer className="pointer-events-none absolute inset-x-0 bottom-0 z-[450] flex justify-center px-2 pb-1">
-        <div className="max-w-[min(78vw,64ch)] rounded-md bg-black/70 px-2.5 py-1 text-center text-[9px] leading-snug text-white/75 sm:max-w-[56ch]">
-          <p className="m-0">{FOOTER_CANON}</p>
-          <p className="m-0">{FOOTER_COMPANION}</p>
-        </div>
-      </footer>
     </div>
   );
 }
